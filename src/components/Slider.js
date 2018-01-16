@@ -50,12 +50,10 @@ class Slider extends React.Component {
     var slideBtn = document.getElementsByClassName("slide");
 
     for (var i = 0; i < slides.length; i++) {
-      // slides[i].style.display = "none";
       slides[i].classList.remove("fade");
       slideBtn[i].classList.remove("current-slide");
     }
 
-    // slides[updatedCount - 1].style.display = "block";
     slideBtn[updatedCount - 1].classList.add("current-slide");
     slides[updatedCount - 1].classList.add("fade");
   }
