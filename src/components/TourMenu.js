@@ -26,17 +26,15 @@ class TourMenu extends React.Component {
   }
 
   handleFilterArray(event) {
-    var target = event.target;
-    var dataFilterValue = target.getAttribute("data-filter");
-    var dataFilterParameter = target.getAttribute("data-param");
+    const target = event.target;
+    const dataFilterValue = target.getAttribute("data-filter");
+    const dataFilterParameter = target.getAttribute("data-param");
 
     if (target.nodeName !== "A" || dataFilterValue === null) {
       return;
     }
 
-    this.setState(prevState => ({
-      filterValue: dataFilterValue
-    }));
+    this.setState({ filterValue: dataFilterValue });
     
     this.setState({ filterParameter: dataFilterParameter });
   }
@@ -55,7 +53,7 @@ class TourMenu extends React.Component {
 
   toggleFilterList(event) {
     event.preventDefault();
-    var target = event.target;
+    const target = event.target;
     if (target.id === "js-show-countries") {
       this.setState({ showFilterList: !this.state.showFilterList });
     } else if (target.id === "js-show-tour-type") {

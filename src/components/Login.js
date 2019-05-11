@@ -28,10 +28,10 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
-    var dataUsers = JSON.parse(localStorage.getItem('usersLocalSt'));
-    for (var i = 0, len = dataUsers.length; i < len; i++) {
+    const dataUsers = JSON.parse(localStorage.getItem('usersLocalSt'));
+    for (let i = 0, len = dataUsers.length; i < len; i++) {
       if ((dataUsers[i].username === this.state.userName) && (dataUsers[i].password === this.state.userPassword)) {
-        CookieUtil.set("name", this.state.userName, new Date("January 1, 2019"));
+        CookieUtil.set("name", this.state.userName, new Date("January 1, 2030"));
         window.location.replace("/");
       } else {
         this.setState({ loginError: true });

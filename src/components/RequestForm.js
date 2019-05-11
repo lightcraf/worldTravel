@@ -21,21 +21,21 @@ class RequestForm extends React.Component {
   }
 
   handleUserInput(event) {
-    var name = event.target.name;
-    var value = event.target.value;
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState({ [name]: value }, () => { this.validateField(name, value) });
   }
 
   validateField(fieldName, value) {
-    var fieldValidationErrors = this.state.formErrors;
-    var emailValid = this.state.emailValid;
-    var userNameValid = this.state.userNameValid;
+    const fieldValidationErrors = this.state.formErrors;
+    let emailValid = this.state.emailValid;
+    let userNameValid = this.state.userNameValid;
 
-    var emailPattern = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
+    const EMAIL_PATTERN = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
 
     switch (fieldName) {
       case "email":
-        emailValid = emailPattern.test(value);
+        emailValid = EMAIL_PATTERN.test(value);
         fieldValidationErrors.email = !emailValid;
         break;
       case "userName":

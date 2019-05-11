@@ -14,8 +14,8 @@ class LoginControl extends React.Component {
   }
 
   render() {
-    var isLoggedIn = this.props.isLoggedIn;
-    var loginButton = null;
+    const isLoggedIn = this.props.isLoggedIn;
+    let loginButton = null;
 
     if (isLoggedIn) {
       loginButton = <a href="/" className="nav-link" onClick={this.handleLogoutClick}>Logout</a>;

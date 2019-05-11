@@ -49,7 +49,7 @@ class PurchaseForm extends React.Component {
 
 
   handleAdults(event) {
-    var target = event.target;
+    const target = event.target;
     if (target.value > 10 || target.value < 0) {
       return;
     }
@@ -57,7 +57,7 @@ class PurchaseForm extends React.Component {
   }
 
   handleChildren(event) {
-    var target = event.target;
+    const target = event.target;
     if (target.value > 10 || target.value < 0) {
       return;
     }
@@ -72,9 +72,9 @@ class PurchaseForm extends React.Component {
     this.setState({ boardType: event.target.value });
   }
 
-  handleRooms(n, event) {
-    var target = event.target;
-    this.handleRoomsCheck(n);
+  handleRooms(roomType, event) {
+    const target = event.target;
+    this.handleRoomsCheck(roomType);
 
     if (target.checked) {
       this.setState({ [target.name]: target.value });
@@ -83,8 +83,8 @@ class PurchaseForm extends React.Component {
     }
   }
 
-  handleRoomsCheck(n) {
-    switch (n) {
+  handleRoomsCheck(roomType) {
+    switch (roomType) {
       case 1:
         this.setState({ isChecked1: !this.state.isChecked1 });
         break;
@@ -112,23 +112,23 @@ class PurchaseForm extends React.Component {
   }
 
   handleUserInput(event) {
-    var name = event.target.name;
-    var value = event.target.value;
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState({ [name]: value }, () => { this.validateField(name, value) });
   }
 
   validateField(fieldName, value) {
-    var fieldValidationErrors = this.state.formErrors;
-    var emailValid = this.state.emailValid;
-    var userNameValid = this.state.userNameValid;
-    var phoneValid = this.state.phoneValid;
+    const fieldValidationErrors = this.state.formErrors;
+    let emailValid = this.state.emailValid;
+    let userNameValid = this.state.userNameValid;
+    let phoneValid = this.state.phoneValid;
 
-    var emailPattern = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
-    var phonePattern = /^\(?(\d{3})\)?[\s\-_]?(\d{3})[\s\-_]?(\d{2})[\s\-_]?(\d{2})[\s\-_]?$/;
+    const EMAIL_PATTERN = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
+    const PHONE_PATTERN = /^\(?(\d{3})\)?[\s\-_]?(\d{3})[\s\-_]?(\d{2})[\s\-_]?(\d{2})[\s\-_]?$/;
 
     switch (fieldName) {
       case "email":
-        emailValid = emailPattern.test(value);
+        emailValid = EMAIL_PATTERN.test(value);
         fieldValidationErrors.email = !emailValid;
         break;
       case "userName":
@@ -136,7 +136,7 @@ class PurchaseForm extends React.Component {
         fieldValidationErrors.userName = !userNameValid;
         break;
       case "phone":
-        phoneValid = phonePattern.test(value);
+        phoneValid = PHONE_PATTERN.test(value);
         fieldValidationErrors.phone = !phoneValid;
         break;
       default:
@@ -169,7 +169,7 @@ class PurchaseForm extends React.Component {
   }
 
   render() {
-    var optionTemplate = this.tour.hotels.map(item => (
+    const optionTemplate = this.tour.hotels.map(item => (
       <option key={item.id} value={item.price}>{item.hotelName}</option>
     ));
 

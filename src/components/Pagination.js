@@ -38,7 +38,7 @@ class Pagination extends React.Component {
   }
 
   filterArray(filterValue) {
-    var newFilterArray;
+    let newFilterArray = null;
     if (filterValue === "hot-tour") {
       newFilterArray = this.tourItems.filter(function (i) {
         return (i.hotTour === true);
@@ -61,7 +61,7 @@ class Pagination extends React.Component {
   }
 
   sortArray(sortParameter) {
-    var newSortArray = this.state.tourItems.slice();
+    let newSortArray = this.state.tourItems.slice();
 
     if (sortParameter === "price-ascending") {
       newSortArray = newSortArray.sort(this.compareValues("price", 1));
@@ -76,8 +76,8 @@ class Pagination extends React.Component {
 
   compareValues(propertyName, order) {
     return function (object1, object2) {
-      var value1 = (typeof object1[propertyName] === "string") ? object1[propertyName].toUpperCase() : object1[propertyName];
-      var value2 = (typeof object2[propertyName] === "string") ? object2[propertyName].toUpperCase() : object2[propertyName];
+      const value1 = (typeof object1[propertyName] === "string") ? object1[propertyName].toUpperCase() : object1[propertyName];
+      const value2 = (typeof object2[propertyName] === "string") ? object2[propertyName].toUpperCase() : object2[propertyName];
 
       if (value1 < value2) {
         return -1 * order;
@@ -90,7 +90,7 @@ class Pagination extends React.Component {
   }
 
   searchArray(searchParam) {
-    var filteredList = [];
+    const filteredList = [];
     switch (this.props.searchIn) {
       case "everywhere":
         this.tourItems.forEach((item) => {
@@ -121,7 +121,7 @@ class Pagination extends React.Component {
   }
 
   render() {
-    var notFound = this.state.tourItems.length === 0 ? <p>No search results found</p> : null;
+    const notFound = this.state.tourItems.length === 0 ? <p>No search results found</p> : null;
     return (
       <section className="col-10 col-md-9 col-sm-8">
         {notFound}

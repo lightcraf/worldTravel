@@ -21,8 +21,8 @@ class PaginationControl extends React.Component {
   }
 
   setPage(page) {
-    var items = this.props.items;
-    var pager = this.state.pager;
+    const items = this.props.items;
+    let pager = this.state.pager;
 
     if (page < 1 || page > pager.totalPages) {
       return;
@@ -32,7 +32,7 @@ class PaginationControl extends React.Component {
     pager = this.getPager(items.length, page);
 
     // get new page of items from items array
-    var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
+    const pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
 
     // update state
     this.setState({ pager: pager });
@@ -41,17 +41,18 @@ class PaginationControl extends React.Component {
     this.props.onChangePage(pageOfItems);
   }
 
-  getPager(totalItems, currentPage, pageSize) {
+  getPager(totalItems, curPage, page) {
     // default to first page
-    currentPage = currentPage || 1;
+    let currentPage = curPage || 1;
 
-    // default page size is 10 (items in page)
-    pageSize = pageSize || 3;
+    // default page size is 3 (items in page)
+    let pageSize = page || 3;
 
     // calculate total pages
-    var totalPages = Math.ceil(totalItems / pageSize);
+    const totalPages = Math.ceil(totalItems / pageSize);
 
-    var startPage, endPage;
+    let startPage = 1;
+    let endPage = 1;
     if (totalPages <= 5) {
       // less than 10 total pages so show all
       startPage = 1;
@@ -71,14 +72,14 @@ class PaginationControl extends React.Component {
     }
 
     // calculate start and end item indexes
-    var startIndex = (currentPage - 1) * pageSize;
-    var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
     // create an array of pages to ng-repeat in the pager control
 
-    var pages = (function (startPage, endPage) {
-      var arr = [];
-      for (var i = startPage; i < endPage; i++) {
+    const pages = (function (startPage, endPage) {
+      const arr = [];
+      for (let i = startPage; i < endPage; i++) {
         arr.push(i);
       }
       return arr;
@@ -99,7 +100,7 @@ class PaginationControl extends React.Component {
   }
 
   render() {
-    var pager = this.state.pager;
+    const pager = this.state.pager;
 
     if (!pager.pages || pager.pages.length <= 1) {
       // don't display pager if there is only 1 page

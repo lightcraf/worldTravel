@@ -24,22 +24,22 @@ class Join extends React.Component {
   }
 
   handleUserInput(event) {
-    var name = event.target.name;
-    var value = event.target.value;
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState({ [name]: value }, () => { this.validateField(name, value) });
   }
 
   validateField(fieldName, value) {
-    var fieldValidationErrors = this.state.formErrors;
-    var emailValid = this.state.emailValid;
-    var userNameValid = this.state.userNameValid;
-    var passwordValid = this.state.passwordValid;
+    const fieldValidationErrors = this.state.formErrors;
+    let emailValid = this.state.emailValid;
+    let userNameValid = this.state.userNameValid;
+    let passwordValid = this.state.passwordValid;
 
-    var emailPattern = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
+    const EMAIL_PATTERN = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
 
     switch (fieldName) {
       case "email":
-        emailValid = emailPattern.test(value);
+        emailValid = EMAIL_PATTERN.test(value);
         fieldValidationErrors.email = !emailValid;
         break;
       case "userName":
@@ -67,14 +67,14 @@ class Join extends React.Component {
   }
 
   handleSubmit(event) {
-    var dataUsers = JSON.parse(localStorage.getItem('usersLocalSt') || "[]");
-    var formData = {};
+    const dataUsers = JSON.parse(localStorage.getItem('usersLocalSt') || "[]");
+    const formData = {};
     if (this.state.formValid === false) {
       event.preventDefault();
       return;
     } else {
       event.preventDefault();
-      CookieUtil.set("name", this.state.userName, new Date("January 1, 2019"));
+      CookieUtil.set("name", this.state.userName, new Date("January 1, 2030"));
       formData.username = this.state.userName;
       formData.password = this.state.password;
       dataUsers.push(formData);

@@ -22,8 +22,8 @@ class Slider extends React.Component {
   }
 
   prevSlide() {
-    var slides = document.getElementsByClassName("slides");
-    var updatedCount = this.state.slideIndex - 1;
+    const slides = document.getElementsByClassName("slides");
+    let updatedCount = this.state.slideIndex - 1;
 
     if (updatedCount < 1) {
       updatedCount = slides.length;
@@ -34,8 +34,8 @@ class Slider extends React.Component {
   }
 
   nextSlide() {
-    var slides = document.getElementsByClassName("slides");
-    var updatedCount = this.state.slideIndex + 1;
+    const slides = document.getElementsByClassName("slides");
+    let updatedCount = this.state.slideIndex + 1;
 
     if (updatedCount > slides.length) {
       updatedCount = 1;
@@ -46,12 +46,12 @@ class Slider extends React.Component {
   }
 
   slider(updatedCount) {
-    var slides = document.getElementsByClassName("slides");
-    var slideBtn = document.getElementsByClassName("slide");
+    const slides = document.getElementsByClassName("slides");
+    const slideBtn = document.getElementsByClassName("slide");
 
-    for (var i = 0; i < slides.length; i++) {
-      slides[i].classList.remove("fade");
+    for (let i = 0; i < slides.length; i++) {
       slideBtn[i].classList.remove("current-slide");
+      slides[i].classList.remove("fade");
     }
 
     slideBtn[updatedCount - 1].classList.add("current-slide");
@@ -59,8 +59,8 @@ class Slider extends React.Component {
   }
 
   selectSlide(event) {
-    var target = event.target;
-    var updatedCount;
+    const target = event.target;
+    let updatedCount = 1;
 
     if (target.className === "slide" && target.nodeName === "SPAN") {
       updatedCount = parseInt(target.getAttribute("data-slide-to"), 10);

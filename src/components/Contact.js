@@ -12,7 +12,8 @@ class Contact extends React.Component {
       emailValid: false,
       userNameValid: false,
       messageValid: false,
-      formValid: false
+      formValid: false,
+      offlineMap: false
     };
 
     this.handleUserInput = this.handleUserInput.bind(this);
@@ -24,35 +25,39 @@ class Contact extends React.Component {
   }
 
   componentDidMount() {
-    var office = { lat: 40.767500, lng: -73.981350 };
-    this.map = new google.maps.Map(this.refs.map, {
-      center: office,
-      zoom: 16,
-      scrollwheel: false
-    });
-    this.marker = new google.maps.Marker({
-      position: office,
-      map: this.map
-    });
+    const OFFICE = { lat: 40.767500, lng: -73.981350 };
+    try {
+      this.map = new google.maps.Map(this.refs.map, {
+        center: OFFICE,
+        zoom: 16,
+        scrollwheel: false
+      });
+      this.marker = new google.maps.Marker({
+        position: OFFICE,
+        map: this.map
+      });
+    } catch (error) {
+      this.setState({ offlineMap: true });
+    }
   }
 
   handleUserInput(event) {
-    var name = event.target.name;
-    var value = event.target.value;
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState({ [name]: value }, () => { this.validateField(name, value) });
   }
 
   validateField(fieldName, value) {
-    var fieldValidationErrors = this.state.formErrors;
-    var emailValid = this.state.emailValid;
-    var userNameValid = this.state.userNameValid;
-    var messageValid = this.state.messageValid;
+    const fieldValidationErrors = this.state.formErrors;
+    let emailValid = this.state.emailValid;
+    let userNameValid = this.state.userNameValid;
+    let messageValid = this.state.messageValid;
 
-    var emailPattern = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
+    const EMAIL_PATTERN = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
 
     switch (fieldName) {
       case "email":
-        emailValid = emailPattern.test(value);
+        emailValid = EMAIL_PATTERN.test(value);
         fieldValidationErrors.email = !emailValid;
         break;
       case "userName":
@@ -79,7 +84,7 @@ class Contact extends React.Component {
     this.setState({ formValid: this.state.emailValid && this.state.userNameValid && this.state.messageValid });
   }
 
-  handleSubmit(event) {
+  handleSubmit() {
     if (this.state.formValid === false) {
       alert("Some fields are invalid. Please check your data and submit the form again.");
       return;
@@ -88,14 +93,19 @@ class Contact extends React.Component {
   }
 
   render() {
-    var mapStyle = {
+    const mapStyle = {
       flex: 1,
       height: 400
     };
+    let mapBox = null;
+    if (this.state.offlineMap) {
+      mapBox = <img className="img-responsive" src={process.env.PUBLIC_URL + "/images/map.jpg"} alt="map" />
+    } else {
+      mapBox = <div ref="map" style={mapStyle}></div>
+    }
     return (
       <div>
-        <div ref="map" style={mapStyle}>I should be a map!</div>
-
+        {mapBox}
         <div className="row">
           <div className="col-4 contact-wrapper">
             <h2 className="contact-title">Contact Info</h2>
